@@ -2,6 +2,7 @@ import os
 import discord
 import re
 import random
+from keep_alive import keep_alive
 
 client = discord.Client()
 
@@ -50,8 +51,7 @@ async def on_message(message):
 
 
   if message.content.startswith("/help"):
-    await message.channel.send("Commands:")
-    await message.channel.send("/r - this will roll a chosen amount of dice with a chosen amount of sides.")
-    await message.channel.send("Example:  '/r 2d6'  - this will roll two six-sided die")
-    
+    await message.channel.send("Commands:\n/r - this will roll a chosen amount of dice with a chosen amount of sides.\nExample:  '/r 2d6'  - this will roll two six-sided die")
+
+keep_alive()    
 client.run(os.environ['botToken'])
