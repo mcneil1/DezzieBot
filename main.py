@@ -6,14 +6,6 @@ from keep_alive import keep_alive
 from discord.ext import commands
 
 intents = discord.Intents.default()
-
-
-
-
-
-
-
-
 bot = commands.Bot(command_prefix=os.environ['prefix'], intents=intents)
 
 @bot.event
@@ -21,9 +13,11 @@ async def on_ready():
   print("Dezzie is online, time to graft.")
   await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="Grafting"))
 
+
 @bot.command()
 async def r(ctx, *args):
-  try:
+  try: 
+    await ctx.message.add_reaction('🎲')
     x = re.search("\d+d\d+$", args[0])
     
     index = 1
@@ -81,7 +75,7 @@ async def r(ctx, *args):
         if numberOfDie > 1 :
           await ctx.send("total = " + str(total))
         elif subtract or add:
-          await ctx.send("total = " + str(total))
+          await ctx.send("total = " + str(total))  
 
     elif args[0] == "help":
       await ctx.send(".r - specify the number of die and the type of die you would like to roll. You can roll up to 10 die and you can roll from a 1 sided die to a 100 sided die. You can also add a modifier to add or subtract from the outcome. Note: only the first modifier added will be taken into account .\n\nExample: '$r 2d6 +4' - this will roll 2 six sided die and add 4 onto the total.")
