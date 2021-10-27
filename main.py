@@ -26,8 +26,8 @@ async def r(ctx, *args):
     subtract = 0
 
     if secondArg:
-      subtract = re.search("$-\d+", args[1])
-      add = re.search("$\+\d+", args[1])
+      subtract = re.search("-\d+$", args[1])
+      add = re.search("\+\d+$", args[1])
 
     if x:
       roll = x.string
@@ -44,8 +44,6 @@ async def r(ctx, *args):
         await ctx.send("Steady on fella, I can't roll any higher than a d100")
         await ctx.message.add_reaction('🚫')
       else:
-        await ctx.send("rolling "+ str(numberOfDie) + " x " + "d" + str(numberOfSides) + "...")
-
         for x in range(numberOfDie):
           dieResult = random.randint(1, numberOfSides)
           total = total + dieResult
@@ -68,17 +66,16 @@ async def r(ctx, *args):
 
           outcome = outcome + " + " + str(num)
           total = total + num
+  
 
+        await ctx.message.add_reaction('🎲')
 
-
-        await ctx.send(outcome)
-        
         if numberOfDie > 1 :
-          await ctx.send("total = " + str(total))
-          await ctx.message.add_reaction('🎲')
+          await ctx.send("rolling "+ str(numberOfDie) + " x " + "d" + str(numberOfSides) + "...\n"+outcome+"\Total = " + str(total))
         elif subtract or add:
-          await ctx.send("total = " + str(total))  
-          await ctx.message.add_reaction('🎲')
+          await ctx.send("rolling "+ str(numberOfDie) + " x " + "d" + str(numberOfSides) + "...\n"+outcome+"\nTotal = " + str(total))  
+        else:
+          await ctx.send("rolling "+ str(numberOfDie) + " x " + "d" + str(numberOfSides) + "...\n"+outcome)
 
     elif args[0] == "help":
       await ctx.send(".r - specify the number of die and the type of die you would like to roll. You can roll up to 10 die and you can roll from a 1 sided die to a 100 sided die. You can also add a modifier to add or subtract from the outcome. Note: only the first modifier added will be taken into account.\n\nSyntax:\n.r <Number Of Die>d<Number Of Sides> +/-<Modifier Value>[Modifier is optional]\n\nExample:\n'.r 2d6 +4' - this will roll 2 six sided die and add 4 onto the total.")
