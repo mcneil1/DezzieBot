@@ -27,8 +27,8 @@ async def r(ctx, *args):
     subtract = 0
 
     if secondArg:
-      subtract = re.search("-\d+", args[1])
-      add = re.search("\+\d+", args[1])
+      subtract = re.search("$-\d+", args[1])
+      add = re.search("$\+\d+", args[1])
 
     if x:
       roll = x.string
